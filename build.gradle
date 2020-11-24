@@ -1,5 +1,5 @@
 group 'com.github.shadskii'
-version '2.1.8.RELEASE'
+version '2.4.0'
 
 apply plugin: 'java-library'
 apply plugin: 'jacoco'
