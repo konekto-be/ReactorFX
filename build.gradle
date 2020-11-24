@@ -1,13 +1,16 @@
-group 'be.konekto'
-version '2.3.5.RELEASE'
+plugins {
+    id "java-library"
+    id "maven-publish"
+    id "signing"
+    id "jacoco"
+    id "eclipse"
+}
 
-apply plugin: 'java-library'
-apply plugin: 'jacoco'
-apply plugin: 'eclipse'
-apply plugin: 'maven'
+group "be.konekto"
+version "2.3.5.RELEASE"
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
@@ -18,8 +21,8 @@ jacocoTestReport {
         xml.enabled = true
         html.enabled = false
     }
-    classDirectories.from(fileTree(dir: 'build/classes/main', include: 'freetimelabs/io/**'))
-    sourceDirectories.from(fileTree(dir: 'scr/main/java', include: 'freetimelabs/io/**'))
+    classDirectories.from(fileTree(dir: "build/classes/main", include: "freetimelabs/io/**"))
+    sourceDirectories.from(fileTree(dir: "scr/main/java", include: "freetimelabs/io/**"))
 }
 
 dependencies {
@@ -31,55 +34,86 @@ dependencies {
     testImplementation "org.assertj:assertj-core"
 }
 
-uploadArchives {
-    repositories.mavenDeployer {
-        repository(url: "https://konekto-maven-repo.appspot.com") {
-            authentication(userName: mavenUser, password: mavenPassword)
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            versionMapping {
+                usage("java-api") {
+                    fromResolutionOf("runtimeClasspath")
+                }
+                usage("java-runtime") {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = "ReactorFX"
+                description = "Reactive JavaFX event handling"
+                url = "https://github.com/konekto-be/ReactorFX"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "shadskii"
+                        name = "Jake Hassel"
+                        email = "jakehasssel@gmail.com"
+                    }
+                    developer {
+                        id = "thekalinga"
+                        name = "Ashok Koyi"
+                        url = "https://thekalinga.in"
+                        organization = "1Ton technolgies"
+                        organizationUrl = "https://1ton.in"
+                    }
+                    developer {
+                        id = "laurentkonekto"
+                        name = "Laurent Lamouline"
+                        email = "laurent@konekto.be"
+                        organization = "Konekto"
+                        organizationUrl = "https://konekto.be"
+                    }
+                    developer {
+                        id = "vincentkonekto"
+                        name = "Vincent Nuttin"
+                        email = "vincent@konekto.be"
+                        organization = "Konekto"
+                        organizationUrl = "https://konekto.be"
+                    }
+                }
+                scm {
+                    connection = "scm:git:https://github.com/konekto-be/ReactorFX.git"
+                    developerConnection = "scm:git:https://github.com/konekto-be/ReactorFX.git"
+                    url = "https://github.com/konekto-be/ReactorFX"
+                }
+            }
         }
-        pom.project {
-            name 'ReactorFX'
-            description 'Reactive JavaFX event handling'
-            url 'https://github.com/konekto-be/ReactorFX'
-            inceptionYear '2018'
-            scm {
-                connection 'scm:git:https://github.com/konekto-be/ReactorFX.git'
-                developerConnection 'scm:git:https://github.com/konekto-be/ReactorFX.git'
-                url 'https://github.com/konekto-be/ReactorFX'
+    }
+    repositories {
+        maven {
+            credentials(PasswordCredentials) {
+                username = "${mavenUser}"
+                password = "${mavenPassword}"
             }
-            licenses {
-                license {
-                    name 'The Apache License, Version 2.0'
-                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                }
-            }
-            developers {
-                developer {
-                    id 'shadskii'
-                    name 'Jake Hassel'
-                    email 'jakehasssel@gmail.com'
-                }
-                developer {
-                    id 'thekalinga'
-                    name 'Ashok Koyi'
-                    url 'https://thekalinga.in'
-                    organization '1Ton technolgies'
-                    organizationUrl 'https://1ton.in'
-                }
-                developer {
-                    id 'laurentkonekto'
-                    name 'Laurent Lamouline'
-                    email 'laurent@konekto.be'
-                    organization 'Konekto'
-                    organizationUrl 'https://konekto.be'
-                }
-                developer {
-                    id 'vincentkonekto'
-                    name 'Vincent Nuttin'
-                    email 'vincent@konekto.be'
-                    organization 'Konekto'
-                    organizationUrl 'https://konekto.be'
-                }
-            }
+            url = "https://konekto-maven-repo.appspot.com"
         }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
+javadoc {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption("html5", true)
     }
 }
