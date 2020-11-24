@@ -1,13 +1,9 @@
 # ReactorFX
-[![Build Status](https://travis-ci.org/shadskii/ReactorFX.svg?branch=master)](https://travis-ci.org/shadskii/ReactorFX)
-[![codecov](https://codecov.io/gh/shadskii/ReactorFX/branch/master/graph/badge.svg)](https://codecov.io/gh/shadskii/ReactorFX)
-[![GitHub license](https://img.shields.io/github/license/shadskii/ReactorFX.svg)](https://github.com/shadskii/ReactorFX/blob/master/LICENSE)
-[![GitHub forks](https://img.shields.io/github/forks/shadskii/ReactorFX.svg)](https://github.com/shadskii/ReactorFX/network)
-[![GitHub issues](https://img.shields.io/github/issues/shadskii/ReactorFX.svg)](https://github.com/shadskii/ReactorFX/issues)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.shadskii/reactorfx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.shadskii/reactorfx)
+[![GitHub license](https://img.shields.io/github/license/konekto-be/ReactorFX)](https://github.com/konekto-be/ReactorFX/blob/master/LICENSE)
+[![GitHub forks](https://img.shields.io/github/forks/konekto-be/ReactorFX)](https://github.com/konekto-be/ReactorFX/network)
+[![GitHub issues](https://img.shields.io/github/issues/konekto-be/ReactorFX)](https://github.com/konekto-be/ReactorFX/issues)
 
-
-<img src="https://github.com/shadskii/ReactorFX/blob/master/ReactorFX_logo.png?raw=true" align="middle">
+<img src="https://github.com/konekto-be/ReactorFX/blob/master/ReactorFX_logo.png?raw=true" align="middle">
 
 This lightweight convenience library allows for simple integration between [Project Reactor](https://projectreactor.io/) and 
 [JavaFX](https://docs.oracle.com/javase/8/javafx/get-started-tutorial/jfx-overview.htm). ReactorFX provides fluent 
